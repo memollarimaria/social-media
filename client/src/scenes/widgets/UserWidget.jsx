@@ -23,7 +23,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const main = palette.neutral.main;
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3000/users/${userId}`, {
+    const response = await fetch(`http://localhost:3005/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -71,7 +71,7 @@ const UserWidget = ({ userId, picturePath }) => {
                 },
               }}
             >
-              {firstName} {firstName}
+              {firstName} {lastName}
             </Typography>
             <Typography color={medium}>{friends.length}</Typography>
           </Box>
@@ -116,9 +116,9 @@ const UserWidget = ({ userId, picturePath }) => {
           <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
             Social Profiles
           </Typography>
-          <FlexBetween gap="1rem" mb="0.5rem">
+          <FlexBetween gap="1rem" mb="0.5rem" >
             <FlexBetween gap="1rem">
-              <img src="../assets/twitter.png" alt="twitter" />
+              <img src="../assets/twitter.png" alt="twitter" width="30px"/>
               <Box>
                 <Typography color={main} fontWeight="500">
                   Twitter
@@ -131,7 +131,7 @@ const UserWidget = ({ userId, picturePath }) => {
 
           <FlexBetween gap="1rem">
             <FlexBetween gap="1rem">
-              <img src="../assets/linkedin.png" alt="linkedin" />
+              <img src="../assets/linkedin.jpg" alt="linkedin" width="30px"/>
               <Box>
                 <Typography color={main} fontWeight="500">
                   Linkedin

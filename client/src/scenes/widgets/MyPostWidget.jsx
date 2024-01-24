@@ -46,7 +46,7 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`http://localhost:3000/posts`, {
+    const response = await fetch(`http://localhost:3005/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -63,7 +63,7 @@ const MyPostWidget = ({ picturePath }) => {
         <UserImage image={picturePath} />
         <InputBase
           placeholder="What's on your mind"
-          onChange={(e) => setPosts(e.target.value)}
+          onChange={(e) => setPost(e.target.value)}
           value={post}
           sx={{
             width: "100%",
