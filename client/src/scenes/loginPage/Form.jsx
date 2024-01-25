@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import { toast } from "react-toastify";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -75,7 +76,21 @@ const Form = () => {
     onSubmitProps.resetForm();
 
     if (savedUser) {
-      setPageType("login");
+      // Check if registration was successful
+      if (savedUser.msg) {
+        // Show a notification for registration error
+        toast.error(`Registration failed`, {
+          style: { backgroundColor: palette.neutral.light },
+          position: "bottom-right",
+        });
+      } else {
+        // Registration successful, navigate to login or show a success message
+        toast.success("Registration successful. Please log in.", {
+          style: { backgroundColor: palette.neutral.light },
+          position: "bottom-right",
+        });
+        setPageType("login");
+      }
     }
   };
 
@@ -87,14 +102,25 @@ const Form = () => {
     });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
+    console.log(loggedIn);
     if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
-      navigate("/home");
+      if (loggedIn.msg) {
+        // Show a notification for user not found
+        console.log("error");
+        toast.error(loggedIn.msg, {
+          style: { backgroundColor: palette.neutral.light },
+          position: "bottom-right",
+        });
+      } else {
+        // User exists, dispatch login action and navigate
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate("/home");
+      }
     }
   };
 
